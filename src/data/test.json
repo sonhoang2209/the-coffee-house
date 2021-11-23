@@ -1,0 +1,126 @@
+{
+    "config": {
+        "adapter": [Function xhrAdapter
+        ],
+        "data": undefined,
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "maxBodyLength": -1,
+        "maxContentLength": -1,
+        "method": "get",
+        "timeout": 0,
+        "transformRequest": [
+            [Function transformRequest
+            ]
+        ],
+        "transformResponse": [
+            [Function transformResponse
+            ]
+        ],
+        "transitional": {
+            "clarifyTimeoutError": false,
+            "forcedJSONParsing": true,
+            "silentJSONParsing": true
+        },
+        "url": "https://mapapi-lehuyknight.herokuapp.com/coffee",
+        "validateStatus": [Function validateStatus
+        ],
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN"
+    },
+    "data": [
+        {
+            "_id": "617804ac6c28de4979f48ccf",
+            "date": "2021-10-26T14:20:43.405Z",
+            "introduction": "Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi",
+            "price": 79000,
+            "title": "ca phe sua da chai fresh 250ML",
+            "type": "coffee"
+        },
+        {
+            "_id": "617804ac6c28de4979f48cd0",
+            "date": "2021-10-26T14:20:43.406Z",
+            "introduction": "Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi",
+            "price": 78000,
+            "title": "ca phe den chai fresh 250ML",
+            "type": "coffee"
+        }
+    ],
+    "headers": {
+        "access-control-allow-origin": "*",
+        "connection": "keep-alive",
+        "content-length": "612",
+        "content-type": "application/json; charset=utf-8",
+        "date": "Tue, 26 Oct 2021 14:20:43 GMT",
+        "etag": "W/\"264-Xq/1FJwWC6+9awsUzx6JM4Mwl4U\"",
+        "server": "Cowboy",
+        "via": "1.1 vegur",
+        "x-powered-by": "Express"
+    },
+    "request": {
+        "DONE": 4,
+        "HEADERS_RECEIVED": 2,
+        "LOADING": 3,
+        "OPENED": 1,
+        "UNSENT": 0,
+        "_aborted": false,
+        "_cachedResponse": undefined,
+        "_hasError": false,
+        "_headers": {
+            "accept": "application/json, text/plain, */*"
+        },
+        "_incrementalEvents": false,
+        "_lowerCaseResponseHeaders": {
+            "access-control-allow-origin": "*",
+            "connection": "keep-alive",
+            "content-length": "612",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Tue, 26 Oct 2021 14:20:43 GMT",
+            "etag": "W/\"264-Xq/1FJwWC6+9awsUzx6JM4Mwl4U\"",
+            "server": "Cowboy",
+            "via": "1.1 vegur",
+            "x-powered-by": "Express"
+        },
+        "_method": "GET",
+        "_perfKey": "network_XMLHttpRequest_https://mapapi-lehuyknight.herokuapp.com/coffee",
+        "_performanceLogger": {
+            "_closed": false,
+            "_extras": [Object
+            ],
+            "_pointExtras": [Object
+            ],
+            "_points": [Object
+            ],
+            "_timespans": [Object
+            ]
+        },
+        "_requestId": null,
+        "_response": "[{\"_id\":\"617804ac6c28de4979f48ccf\",\"title\":\"ca phe sua da chai fresh 250ML\",\"type\":\"coffee\",\"introduction\":\"Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi\",\"price\":79000,\"date\":\"2021-10-26T14:20:43.405Z\"},{\"_id\":\"617804ac6c28de4979f48cd0\",\"title\":\"ca phe den chai fresh 250ML\",\"type\":\"coffee\",\"introduction\":\"Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi\",\"price\":78000,\"date\":\"2021-10-26T14:20:43.406Z\"}]",
+        "_responseType": "",
+        "_sent": true,
+        "_subscriptions": [],
+        "_timedOut": false,
+        "_trackingName": "unknown",
+        "_url": "https://mapapi-lehuyknight.herokuapp.com/coffee",
+        "readyState": 4,
+        "responseHeaders": {
+            "Access-Control-Allow-Origin": "*",
+            "Connection": "keep-alive",
+            "Content-Length": "612",
+            "Content-Type": "application/json; charset=utf-8",
+            "Date": "Tue, 26 Oct 2021 14:20:43 GMT",
+            "Etag": "W/\"264-Xq/1FJwWC6+9awsUzx6JM4Mwl4U\"",
+            "Server": "Cowboy",
+            "Via": "1.1 vegur",
+            "X-Powered-By": "Express"
+        },
+        "responseURL": "https://mapapi-lehuyknight.herokuapp.com/coffee",
+        "status": 200,
+        "timeout": 0,
+        "upload": {},
+        "withCredentials": true
+    },
+    "status": 200,
+    "statusText": undefined
+}
