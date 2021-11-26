@@ -1,89 +1,161 @@
-import React,{useState} from 'react'
-import { View,StyleSheet, Text,Image, TouchableOpacity,TextInput, ScrollView } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import { FlatList, Image, View, Text, TextInput, TouchableOpacity, SafeAreaView, StyleSheet,Dimensions } from 'react-native'
 
-import { MethodHeader } from '../components/Methods';
-import ListItem from '../components/ListItem';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import axios from 'axios'
 
-const DATA = [
-    {
-        id:1,
-        title:'ca phe sua da chai fresh 250ML',
-        introduction:"Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi",
-        price:79000,
-        image:require('../../images/products/coffee-250ml.jpg')
-    },
-    {
-        id:2,
-        title:'ca phe sua da chai fresh 250ML',
-        introduction:"Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi",
-        price:79000,
-        image:require('../../images/products/coffee-milk-250ml.jpg')
-    },
-]
-
+const WIDTH = Dimensions.get('window').width;
 
 export default function Shop() {
+    const viewStore = () => navigation.navigate('StoreLocationDetails')
+
+    const [data, useData] = useState([]);
+    const [isLoading, useIsLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('https://api.thecoffeehouse.com/api/v5/stores/all')
+          .then(({ data }) => {
+            // console.log("data", data.stores)
+            useData(data.stores)
+          })
+          .catch((error) => console.error(error))
+          .finally(() => useIsLoading(false));
+    }, []);
+
+    // callApi = () => {
+    //     axios.get('https://api.thecoffeehouse.com/api/v5/stores/all')
+    //     .then(function (response) {
+    //         console.log('response=>', response)
+    //         alert(JSON.stringify(response));
+    //     })
+    //     .catch(function (error) {
+    //         alert(error);
+    //     });
+    // }
+
+    const ListHeader = () => (
+            <View>
+                <View style={{backgroundColor: '#FFF', flexDirection: 'row',}}>
+                    <View>
+                        <Ionicons name="search-outline" size={20} color="#000" style={styles.icon} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Tìm kiếm"
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.btnMap}>
+                        <Ionicons name="map-outline" size={20} color="#000" style={styles.iconMap} />
+                        <Text style={styles.txtMap}>Bản đồ</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.titleContent}>Các cửa hàng khác</Text>
+            </View>
+        )
+
+    const renderItem = ({ item }) => (
+        <View>
+            <TouchableOpacity
+            onPress={viewStore}
+            // onPress={()=>this.callApi()}
+            style={styles.locationtItem}>
+                <Image
+                    style={styles.locationImages}
+                    source={{ uri: item?.images[0] }}
+                    />
+                <View style={styles.locationInfo}>
+                    <Text 
+                    style={styles.name}
+                    numberOfLines={1}
+                    ellipsizeMode= 'tail'
+                    >{item.name}</Text>
+                    <Text 
+                    style={styles.location}
+                    numberOfLines={2}
+                    ellipsizeMode= 'tail'
+                    >{item?.full_address}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+    );
 
     return (
-        <View style={{flex:1}}>
-            <View style={[styles.container, {paddingBottom:5}]}>
-                <MethodHeader />
-            </View>
-            <View style={[styles.container, styles.controlBox]}>
-                <TextInput
-                    style={{ height: 40, width: '70%', backgroundColor:'#ccc', borderRadius:5 }}
-                />
-                <TouchableOpacity style={styles.btn}>
-                    <Image 
-                        source={require('../../images/icons/search.png')}
-                        style={styles.btnImage}
+        <SafeAreaView>
+            <View style={{backgroundColor: '#EEE'}}>
+                
+                <FlatList
+                        ListHeaderComponent={ListHeader}
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                        horizontal={false}
+                        showsVerticalScrollIndicator={false}
                     />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                    <Image 
-                        source={require('../../images/icons/heart.png')}
-                        style={styles.btnImage}
-                    />
-                </TouchableOpacity>
             </View>
-            <ScrollView style={styles.shopList}>
-                <View>
-                    <ListItem data={DATA} title='Dang duoc yeu thich' />
-                    <ListItem data={DATA} title='Ca phe' />
-                </View>
-            </ScrollView>
-        </View>
-    )   
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
-    container: {paddingVertical: 15,paddingHorizontal: 15, width:"100%"},
-    controlBox:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        backgroundColor:'#dfdfdf',
-        borderBottomWidth:1,
-        borderBottomColor:"#aaa"
+    input: {
+        backgroundColor: '#EEE',
+        marginHorizontal: 16,
+        width: WIDTH*0.7,
+        height: 40,
+        borderRadius: 10,
+        paddingLeft: 42,
+        marginBottom: 16,
     },
-    dropdown: {
-        width:'80%',
-        borderWidth:1,
-        borderColor:"#000"
+    icon: {
+        top: 30,
+        left: 30,
+        zIndex: 1,
     },
-    btnImage: {
-        width: 16,
-        height:16,
+    btnMap: {
+        flexDirection: 'row',
+        padding: 16,
+        top: 15,
+        left: -15,
     },
-    btn: {
-        width:40,
-        height:40,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:"#ccc",
-        borderRadius:5
+    txtMap: {
+        color: '#000',
+        margin: 2,
+        paddingLeft: 5,
+        fontWeight: 'bold',
     },
-    shopList: {
-        backgroundColor:"#dfdfdf",
-        padding:15
+    titleContent: {
+        marginHorizontal: 16,
+        marginVertical: 8,
+        marginTop: 20,
+        color: '#000',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    locationtItem: {
+        flexDirection: 'row',
+        backgroundColor: '#FFF',
+        borderRadius: 10,
+        marginHorizontal: 16,
+        marginBottom: 5,
+        padding: 16,
+    },
+    locationImages: {
+        width: WIDTH*0.2,
+        height: WIDTH*0.2,
+        borderRadius: 8,
+    },
+    locationInfo: {
+        marginHorizontal: 16,
+    },
+    name: {
+        width: WIDTH*0.6,
+        textTransform: 'uppercase',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    location: {
+        color: '#000',
+        width: WIDTH*0.6,
+        fontSize: 16,
+        marginBottom: 5,
     }
 });

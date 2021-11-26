@@ -1,5 +1,5 @@
 import React from 'react'
-import { View,StyleSheet, Text,Image, TouchableOpacity,ScrollView, ImageBackground } from 'react-native'
+import { View,StyleSheet, Text,Image, ImageBackground } from 'react-native'
 
 export default function Barcode() {
     return (

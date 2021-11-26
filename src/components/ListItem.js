@@ -17,14 +17,16 @@ export function Item({item, index}) {
 }
 
 export function ItemProduct({item, index}) {
+    const navigation = useNavigation();
+    const moveToDetail = (item) => () => navigation.navigate('ProductDetail', { data: item })
     return(
-        <TouchableOpacity key={index} style={styles.itemBox}>
+        <TouchableOpacity key={index} style={styles.itemBox} onPress={moveToDetail(item)}>
             <View style={styles.itemContent}>
                 <Text numberOfLines={1} style={styles.itemTitle}>{item?.name}</Text>
                 <Text numberOfLines={2} style={styles.itemIntro}>{item?.description}</Text>
                 <Text style={styles.itemPrice}>{item?.base_price}đ</Text>
             </View>
-            <Image source={{uri: item?.image?.[0]}} style={styles.itemImage} />
+            <Image source={{uri: item?.images?.[0]}} style={styles.itemImage} />
         </TouchableOpacity>
     )
 }
@@ -36,7 +38,7 @@ export default function ListItem({data, title}) {
             {
                 data.map((item, index) => {
                     return(
-                        <Item item={item} index={index} key={index} />
+                        <ItemProduct item={item} index={index} key={index} />
                     )
                 })
             }
@@ -53,7 +55,6 @@ const styles = StyleSheet.create({
         marginBottom:5
     },
     itemBox:{
-        flex:1,
         flexDirection:'row',
         marginTop:10,
         backgroundColor:"#fff",
@@ -64,12 +65,10 @@ const styles = StyleSheet.create({
         flex:2,
         marginRight:15,
         justifyContent:'space-between',
-        
     },
     itemImage: {
         width:90,
         height:90,
-        flex:1,
         borderRadius:5
     },
     itemTitle: {

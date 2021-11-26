@@ -1,16 +1,25 @@
 import React,{useState,useEffect} from 'react'
 import { View,StyleSheet, Text,Image, TouchableOpacity,TextInput, ScrollView,Dimensions } from 'react-native'
-
+import { useSelector, useDispatch } from "react-redux";
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
 export default function Detail({ navigation, route }) {
-    const [priceDetail, setPriceDetail] = useState(79000)
+
+    const { data } = route.params;
+    const dispatch = useDispatch();
+
+    const [priceDetail, setPriceDetail] = useState(data?.price)
     const [quantity, setQuantity] = useState(1)
     const [total, setTotal] = useState(0)
+
     useEffect(() => {
-        setTotal(priceDetail * quantity)
+        setTotal(priceDetail * quantity) 
     }, [quantity]);
+
+    const onAddCard = (item) => {
+        dispatch({ type: "ADD_TO_CART", data: { ...data, quantity: item } });
+    }
 
     return (
         <View style={styles.detail}>
@@ -22,39 +31,31 @@ export default function Detail({ navigation, route }) {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <Image 
-                            style={styles.image}
-                            source={{
-                            uri: 'https://minio.thecoffeehouse.com/image/admin/BottleCFSD_496652.jpg',
-                        }} />
-                        <Image 
-                            style={styles.image}
-                            source={{
-                            uri: 'https://minio.thecoffeehouse.com/image/admin/1633146193_photo-2021-10-02-10-42-41.jpg',
-                        }} />
-                        <Image 
-                            style={styles.image}
-                            source={{
-                            uri: 'https://minio.thecoffeehouse.com/image/admin/1633146193_photo-2021-10-02-10-42-41.jpg',
-                        }} />
-                        <Image 
-                            style={styles.image}
-                            source={{
-                            uri: 'https://minio.thecoffeehouse.com/image/admin/1633146193_photo-2021-10-02-10-42-41.jpg',
-                        }} />
+                        {
+                            data?.images?.map((item, index) => {
+                                return(
+                                    <Image
+                                        style={styles.image}
+                                        key={index}
+                                        source={{
+                                        uri: item,
+                                    }} />
+                                )
+                            })
+                        }
                     </ScrollView>
                 </View>
                 <View style={[styles.container, styles.content]}>
                     <View style={styles.titleWrapper}>
-                        <Text style={styles.title}>ca phe sua da chai fresh 250ML</Text>
+                        <Text style={styles.title}>{data?.name}</Text>
                         <TouchableOpacity
                             style={{flex:1, alignItems:'flex-end'}}
                         >
                             <Image style={styles.icon} source={require('../../images/icons/heart.png')} />
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.price}>79000đ</Text>
-                    <Text style={styles.intro}>Van la huong vi ca phe sua dam da quen thuoc cua chung toi nhung khoac len minh bo quna ao moi tien loi hon, tiet kiem va phu hop hon voi nhieu nguoi</Text>
+                    <Text style={styles.price}>{priceDetail}đ</Text>
+                    <Text numberOfLines={2} style={styles.intro}>{data?.description}</Text>
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.titleRequest}>Yeu cau khac</Text>
@@ -85,6 +86,7 @@ export default function Detail({ navigation, route }) {
                 </View>
                 <TouchableOpacity
                     style={styles.btn}
+                    onPress={onAddCard(quantity)}
                 >
                     <Text style={styles.btnText}>Chon san pham - {total}đ</Text>
                 </TouchableOpacity>
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
         borderBottomWidth:6
     },
     title: {
-        fontSize:24,
+        fontSize:22,
         fontWeight:'700',
         textTransform:'capitalize',
         flex:5
