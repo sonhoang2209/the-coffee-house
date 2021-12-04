@@ -50,15 +50,15 @@ export default function Products() {
                         data.map((item, index) => {
                         return (
                             <TouchableOpacity key={index} style={styles.category}>
-                                <Image style={{width:"80%",height:WIDTH*0.2*0.8}} source={{uri : item?.thumbnail}} />
-                                <Text numberOfLines={2} >{item?.name}</Text>
+                                <Image style={styles.thumbnail} source={{uri : item?.thumbnail}} />
+                                <Text numberOfLines={2} style={{textAlign:'center'}}  >{item?.name}</Text>
                             </TouchableOpacity>
                         )
                         })
                     }
                     <TouchableOpacity key="8" style={styles.category}>
-                        <Image style={{width:"80%",height:WIDTH*0.2*0.8}} source={require('../../images/icons/more.png')} />
-                        <Text numberOfLines={2} style={{textAlign:'center'}} >khac</Text>
+                        <Image style={styles.thumbnail} source={require('../../images/icons/more.png')} />
+                        <Text numberOfLines={2} style={{textAlign:'center'}} >Khác</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.shopList}>
@@ -104,5 +104,6 @@ const styles = StyleSheet.create({
     shopList: {
         padding:15
     },
-    category: {width:(WIDTH - 80) /4, alignItems:'center', marginHorizontal:10, marginVertical:10}
+    category: {width:(WIDTH - 80) /4, alignItems:'center', marginHorizontal:10, marginVertical:10},
+    thumbnail:{width:"80%",height:WIDTH*0.2*0.8,marginBottom:5}
 });

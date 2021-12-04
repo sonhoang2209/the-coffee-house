@@ -8,7 +8,7 @@ export default function Detail({ navigation, route }) {
 
     const { data } = route.params;
     const dispatch = useDispatch();
-
+    
     const [priceDetail, setPriceDetail] = useState(data?.price)
     const [quantity, setQuantity] = useState(1)
     const [total, setTotal] = useState(0)
@@ -35,7 +35,9 @@ export default function Detail({ navigation, route }) {
                             data?.images?.map((item, index) => {
                                 return(
                                     <Image
-                                        style={styles.image}
+                                        style={
+                                            data?.images?.length === 1 ? styles.imageSingle : styles.image
+                                        }
                                         key={index}
                                         source={{
                                         uri: item,
@@ -108,7 +110,13 @@ const styles = StyleSheet.create({
         justifyContent:'space-between'
     },
     image: {
-        width: WIDTH / 2 - 2,
+        width: WIDTH * 0.8 - 1,
+        height:'100%',
+        resizeMode:'cover',
+        marginHorizontal:1
+    },
+    imageSingle: {
+        width: WIDTH,
         height:'100%',
         resizeMode:'cover',
         marginHorizontal:2
