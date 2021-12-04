@@ -1,10 +1,11 @@
 import React,{useState, useEffect} from 'react'
-import { View,StyleSheet, Text,Image, TouchableOpacity,TextInput, ScrollView } from 'react-native'
+import { View,StyleSheet, Text,Image, TouchableOpacity,TextInput, ScrollView, Dimensions } from 'react-native'
 
 import { MethodHeader } from '../components/Methods';
 import ListItem from '../components/ListItem';
-
 import axios from 'axios';
+
+const WIDTH = Dimensions.get('window').width;
 
 export default function Products() {
 
@@ -43,14 +44,32 @@ export default function Products() {
                     />
                 </TouchableOpacity>
             </View>
-            <ScrollView style={styles.shopList}>
-                {
-                    data.map((item, index) => {
-                    return (
-                        <ListItem data={item?.products} title={item?.name} key={index} />
-                    )
-                    })
-                }
+            <ScrollView>
+                <View style={{flexDirection:'row', flexWrap:'wrap',justifyContent:'space-between'}}>
+                    {
+                        data.map((item, index) => {
+                        return (
+                            <TouchableOpacity key={index} style={styles.category}>
+                                <Image style={{width:"80%",height:WIDTH*0.2*0.8}} source={{uri : item?.thumbnail}} />
+                                <Text numberOfLines={2} >{item?.name}</Text>
+                            </TouchableOpacity>
+                        )
+                        })
+                    }
+                    <TouchableOpacity key="8" style={styles.category}>
+                        <Image style={{width:"80%",height:WIDTH*0.2*0.8}} source={require('../../images/icons/more.png')} />
+                        <Text numberOfLines={2} style={{textAlign:'center'}} >khac</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.shopList}>
+                    {
+                        data.map((item, index) => {
+                        return (
+                            <ListItem data={item?.products} title={item?.name} key={index} />
+                        )
+                        })
+                    }
+                </View>
             </ScrollView>
         </View>
     )
@@ -83,7 +102,7 @@ const styles = StyleSheet.create({
         borderRadius:5
     },
     shopList: {
-        backgroundColor:"#dfdfdf",
         padding:15
-    }
+    },
+    category: {width:(WIDTH - 80) /4, alignItems:'center', marginHorizontal:10, marginVertical:10}
 });

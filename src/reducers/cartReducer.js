@@ -33,6 +33,15 @@ export default function itemReducer(state = initialState, action) {
                 cart: [...state.cart]
             }
 
+        case "REMOVE_CART":
+            // const isIndRemove = state.cart?.findIndex(e => e?.id === action.data?.id)
+            // console.log(isIndRemove)
+            return {
+                ...state,
+                cart: [...state.cart.filter(item => item?.id !== action.data?.id)]
+            }
+           
+
         case "REMOVE_ALL":
             return {
                 ...state,

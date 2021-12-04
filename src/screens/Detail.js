@@ -17,7 +17,7 @@ export default function Detail({ navigation, route }) {
         setTotal(priceDetail * quantity) 
     }, [quantity]);
 
-    const onAddCard = () => {
+    const onAddCart = () => {
         dispatch({ type: "ADD_TO_CART", data: { ...data, quantity: quantity } });
     }
 
@@ -86,7 +86,7 @@ export default function Detail({ navigation, route }) {
                 </View>
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={onAddCard}
+                    onPress={onAddCart}
                 >
                     <Text style={styles.btnText}>Chon san pham - {total}đ</Text>
                 </TouchableOpacity>

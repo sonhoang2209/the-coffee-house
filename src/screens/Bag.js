@@ -5,14 +5,11 @@ const WIDTH = Dimensions.get('window').width;
 
 import { useSelector, useDispatch } from "react-redux";
 
-
 export default function Bag() {
 
-    const dispatch = useDispatch();
-    const listItem = useSelector((store) => store.cartReducer.cart);
-
     const [allTotal, setAllTotal] = useState(0)
-
+    const listItem = useSelector((store) => store.cartReducer.cart);
+    const dispatch = useDispatch();
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -114,7 +111,11 @@ export default function Bag() {
 }
 
 function Item({item}) { 
+    const dispatch = useDispatch();
     const [total, setTotal] = useState( item?.quantity * item?.price )
+    const onDelCart = () => {
+        dispatch({ type: "REMOVE_CART", data: item });
+    }
     return(
         <TouchableOpacity key={item?.id} style={{ marginTop: 16, flexDirection: 'row', justifyContent: 'space-between'}}>
             <View style={{flexDirection: 'row'}}>
@@ -124,15 +125,24 @@ function Item({item}) {
                     <Text>{item?.options?.item?.[0]}</Text>
                 </View>
             </View>
-            <Text>{total}đ</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{ marginRight:10}}>{total}đ</Text>
+                <TouchableOpacity style={styles.delete} onPress={onDelCart}>
+                    <Image 
+                        source={require('../../images/icons/delete.png')}
+                        style={styles.icon}
+                    />
+                </TouchableOpacity>
+            </View>
         </TouchableOpacity>
     )
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        
+    icon: {
+        width:20,
+        height:20
     },
     content: {
         marginTop: 16,
@@ -208,5 +218,5 @@ const styles = StyleSheet.create({
     },
     text: {
         width:200
-    }
+    },
 })

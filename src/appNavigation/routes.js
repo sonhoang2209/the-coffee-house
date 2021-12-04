@@ -81,7 +81,7 @@ function AppNavigation() {
         <Tab.Screen name="Order" component={ProductStackScreen} />
         <Tab.Screen name="Shop" component={Shop} />
         <Tab.Screen name="Ticket" component={Bag} />
-        <Tab.Screen name="Utilities" component={Utilities} />
+        <Tab.Screen name="Utilities" component={Search} />
       </Tab.Navigator>
     </NavigationContainer>
   );

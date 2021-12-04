@@ -22,17 +22,6 @@ export default function Shop() {
           .finally(() => useIsLoading(false));
     }, []);
 
-    // callApi = () => {
-    //     axios.get('https://api.thecoffeehouse.com/api/v5/stores/all')
-    //     .then(function (response) {
-    //         console.log('response=>', response)
-    //         alert(JSON.stringify(response));
-    //     })
-    //     .catch(function (error) {
-    //         alert(error);
-    //     });
-    // }
-
     const ListHeader = () => (
             <View>
                 <View style={{backgroundColor: '#FFF', flexDirection: 'row',}}>
@@ -81,15 +70,14 @@ export default function Shop() {
     return (
         <SafeAreaView>
             <View style={{backgroundColor: '#EEE'}}>
-                
                 <FlatList
-                        ListHeaderComponent={ListHeader}
-                        data={data}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                        horizontal={false}
-                        showsVerticalScrollIndicator={false}
-                    />
+                    ListHeaderComponent={ListHeader}
+                    data={data}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    horizontal={false}
+                    showsVerticalScrollIndicator={false}
+                />
             </View>
         </SafeAreaView>
     )
